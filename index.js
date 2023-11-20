@@ -19,15 +19,13 @@ const shoppingListInDB = ref(database, "shoppingList");
 const inputFieldEl = document.getElementById("input-field");
 const addButtonEl = document.getElementById("add-button");
 const shoppingListEl = document.getElementById("shopping-list");
-
+push(ref(database, "test for string"), "første variable pushet selv.");
 addButtonEl.addEventListener("click", function () {
-  addToCart();
-});
+  let inputValue = inputFieldEl.value;
 
-addButtonEl.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    addToCart();
-  }
+  push(shoppingListInDB, inputValue);
+
+  clearInputFieldEl();
 });
 
 onValue(shoppingListInDB, function (snapshot) {
@@ -47,14 +45,6 @@ onValue(shoppingListInDB, function (snapshot) {
     shoppingListEl.innerHTML = "No items here... yet";
   }
 });
-
-function addToCart() {
-  let inputValue = inputFieldEl.value;
-
-  push(shoppingListInDB, inputValue);
-
-  clearInputFieldEl();
-}
 
 function clearShoppingListEl() {
   shoppingListEl.innerHTML = "";
